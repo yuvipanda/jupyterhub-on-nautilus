@@ -1,0 +1,27 @@
+jupyterhub:
+  proxy:
+    secretToken: e8ae2e923326d8f90bd8e2fc12b45c6d1fcce13c1f40825b38e91c40f646d604
+  hub:
+    db:
+      pvc:
+        storageClassName: rook-block
+  
+  # No rights to create a ClusterRole, so can not run prepuller
+  prePuller:
+    hook:
+      enabled: false
+
+  singleuser:
+    # No cloudMetadata here (I think).
+    # CloudMetadata blocker also requires NET_ADMIN, which is blocked
+    cloudMetadata:
+      enabled: true
+    storage:
+      capacity: 1Gi
+      dynamic:
+        storageClass: rook-block
+
+  ingress:
+    enabled: true
+    hosts:
+      - yuvipanda-jupyterhub.nautilus.optiputer.net
